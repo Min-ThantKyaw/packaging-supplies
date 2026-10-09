@@ -1,0 +1,25 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="_UWvLI1AmySd5B8Xn5pO">
+    <mxGraphModel dx="1269" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="h8DdTIBV--O6M3JVEw8g-18" edge="1" parent="1" source="h8DdTIBV--O6M3JVEw8g-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="h8DdTIBV--O6M3JVEw8g-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="h8DdTIBV--O6M3JVEw8g-14" parent="1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" value="Product" vertex="1">
+          <mxGeometry height="200" width="240" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="h8DdTIBV--O6M3JVEw8g-15" parent="h8DdTIBV--O6M3JVEw8g-14" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" value="+id(pk)&lt;div&gt;+category_id(fk)&lt;br&gt;+sku&lt;br&gt;+name&lt;div&gt;+size&lt;/div&gt;&lt;div&gt;+color&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="150" width="240" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="h8DdTIBV--O6M3JVEw8g-16" parent="1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" value="Category" vertex="1">
+          <mxGeometry height="110" width="240" x="440" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="h8DdTIBV--O6M3JVEw8g-17" parent="h8DdTIBV--O6M3JVEw8g-16" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" value="+id(pk)&lt;br&gt;+Attribute2&lt;br&gt;+Attribute3" vertex="1">
+          <mxGeometry height="60" width="240" y="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

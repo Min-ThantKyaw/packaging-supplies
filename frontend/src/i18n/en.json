@@ -1,0 +1,39 @@
+{
+  "common": {
+    "appName": "Packaging POS",
+    "save": "Save",
+    "cancel": "Cancel",
+    "logout": "Log out",
+    "loading": "Loading…",
+    "comingSoon": "Coming soon."
+  },
+  "auth": {
+    "loginTitle": "Sign in",
+    "registerTitle": "Create your shop account",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "login": "Sign in",
+    "register": "Sign up",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "invalidCredentials": "Invalid email or password."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "inventory": "Inventory",
+    "purchases": "Purchases",
+    "sales": "Sales (POS)",
+    "customers": "Customers",
+    "suppliers": "Suppliers",
+    "deliveryServices": "Delivery Services",
+    "expenses": "Expenses",
+    "reports": "Reports"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back, {{name}}"
+  }
+}

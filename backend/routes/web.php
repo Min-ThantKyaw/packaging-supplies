@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/api', function () {
-    return response()->json(['message' => 'Hello from the backend!']);
+Route::get('/api/health', function () {
+    return response()->json(['status' => 200, 'message' => 'Hello from the API!']);
 });

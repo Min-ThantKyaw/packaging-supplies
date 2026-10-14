@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
-use App\Traits\ApiResponse;
 use App\Http\Requests\Seller\SellerLoginRequest;
 use App\Services\Seller\SellerAuthService;
+use App\Traits\ApiResponse;
+use Illuminate\Support\Facades\Auth;
 
 class SellerAuthController extends Controller
 {
@@ -28,5 +29,13 @@ class SellerAuthController extends Controller
             'token' => $token,
             ], 
             'Login successful', 200);
+    }
+
+    public function logout()
+    {
+        $user = Auth::user();
+        $this->service->logout($user);
+
+        return $this->successResponse([], 'Logout successful', 200);
     }
 }

@@ -1,11 +1,8 @@
 @extends('layouts.admin')
 
-@section('title', 'Shop Owners')
-@section('subtitle', 'Manage all shop owners on the platform')
+@section('title', 'Sellers')
+@section('subtitle', 'Manage all sellers on the platform')
 
-@php
-    $owners = $owners ?? collect();
-@endphp
 @section('content')
     {{-- Flash message --}}
     @if (session('success'))
@@ -20,8 +17,8 @@
     {{-- Page header --}}
     <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-            <h2 class="text-xl font-semibold text-slate-900">Shop Owners</h2>
-            <p class="text-sm text-slate-500">All registered shop owners across the platform.</p>
+            <h2 class="text-xl font-semibold text-slate-900">Sellers</h2>
+            <p class="text-sm text-slate-500">All registered sellers across the platform.</p>
         </div>
         <div class="flex items-center gap-2">
             <button type="button"
@@ -32,12 +29,12 @@
                 </svg>
                 Export
             </button>
-            <button type="button" data-modal-target="create-owner-modal"
+            <button type="button" data-modal-target="create-seller-modal"
                 class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm shadow-indigo-600/30 transition hover:bg-indigo-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 5v14M5 12h14" />
                 </svg>
-                Add Shop Owner
+                Add Seller
             </button>
         </div>
     </div>
@@ -60,7 +57,7 @@
         </select>
     </div>
 
-    {{-- Owners table --}}
+    {{-- Sellers table --}}
 
     <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div class="overflow-x-auto">
@@ -77,26 +74,26 @@
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     {{-- Sample rows — replace with @foreach ($owners as $owner) --}}
-                    @foreach ($owners as $owner)
+                    @foreach ($sellers as $seller)
                         <tr class="transition hover:bg-slate-50">
                             <td class="px-5 py-3.5">
                                 <div class="flex items-center gap-3">
                                     <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-semibold text-indigo-700">AA</div>
                                     <div class="min-w-0">
-                                        <p class="truncate font-medium text-slate-900">{{ $owner->name }}</p>
-                                        <p class="truncate text-xs text-slate-400">{{ $owner->email }}</p>
+                                        <p class="truncate font-medium text-slate-900">{{ $seller->name }}</p>
+                                        <p class="truncate text-xs text-slate-400">{{ $seller->email }}</p>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-5 py-3.5 text-slate-600">{{ $owner->shop ?? 'N/A' }}</td>
-                            <td class="px-5 py-3.5 text-slate-600">{{ $owner->phone ?? 'N/A' }}</td>
+                            <td class="px-5 py-3.5 text-slate-600">{{ $seller->shop_name ?? 'N/A' }}</td>
+                            <td class="px-5 py-3.5 text-slate-600">{{ $seller->phone ?? 'N/A' }}</td>
                             <td class="px-5 py-3.5">
-                                <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                                    Active
+                                <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold {{ $seller->is_active ? 'text-emerald-700' : 'text-slate-500' }}">
+                                    <span class="h-1.5 w-1.5 rounded-full {{ $seller->is_active ? 'bg-emerald-500' : 'bg-slate-300' }}"></span>
+                                    {{ $seller->is_active ? 'Active' : 'Inactive' }}
                                 </span>
                             </td>
-                            <td class="px-5 py-3.5 text-slate-500">{{ $owner->created_at }}</td>
+                            <td class="px-5 py-3.5 text-slate-500">{{ optional($seller->created_at)->format('Y-m-d') }}</td>
                             <td class="px-5 py-3.5">
                                 <div class="flex items-center justify-end gap-1">
                                     <a href="#" title="View" class="rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700">
@@ -128,7 +125,7 @@
         <div class="flex flex-col items-center justify-between gap-3 border-t border-slate-100 px-5 py-4 sm:flex-row">
             <p class="text-xs text-slate-500">
                 Showing <span class="font-medium text-slate-700">1</span>–<span class="font-medium text-slate-700">4</span>
-                of <span class="font-medium text-slate-700">128</span> owners
+                of <span class="font-medium text-slate-700">128</span> sellers
             </p>
             <div class="flex items-center gap-1">
                 <button type="button" class="rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-500 transition hover:bg-slate-50">Previous</button>
@@ -141,7 +138,7 @@
     </div>
 
     {{-- Create modal (fill in components/create-modal.blade.php) --}}
-    @include('admin.owners.create-modal')
+    @include('admin.sellers.create-modal')
 
     <script>
         // Opens/closes any [data-modal-target] modal. Safe when the modal is absent.

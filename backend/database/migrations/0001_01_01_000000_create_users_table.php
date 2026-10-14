@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone', 50)->nullable();
             $table->string('shop_name')->nullable();
-            $table->string('role')->default('owner');
+            $table->string('role')->default('seller');
             $table->string('locale', 5)->default('en');
             $table->boolean('is_active')->default(true);
             $table->timestamp('email_verified_at')->nullable();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Owner;
+namespace App\Services\Seller;
 
 use App\Models\Category;
 

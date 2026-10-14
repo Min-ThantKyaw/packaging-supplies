@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\IndexController;
-use App\Http\Controllers\Admin\OwnerController;
+use App\Http\Controllers\Admin\SellerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,14 +18,14 @@ Route::prefix('admin')->group(function () {
     // Guest routes
     Route::middleware('guest')->group(function () {
         Route::get('/login', [IndexController::class, 'login'])->name('login');
-        Route::post('/login', [IndexController::class, 'authenticate']);
+        Route::post('/login', [AdminAuthController::class, 'authenticate']);
     });
 
     // Authenticated routes
     Route::middleware('auth')->group(function () {
         Route::get('/', [IndexController::class, 'index'])->name('admin.dashboard');
-        Route::get('/owners', [OwnerController::class, 'index'])->name('admin.owners');
-        Route::post('/owners', [OwnerController::class, 'store'])->name('admin.owners.store');
-        Route::post('/logout', [IndexController::class, 'logout'])->name('admin.logout');
+        Route::get('/sellers', [SellerController::class, 'index'])->name('admin.sellers');
+        Route::post('/sellers', [SellerController::class, 'store'])->name('admin.sellers.store');
+        Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
     });
 });

@@ -7,8 +7,6 @@
     "types": ["vite/client"],
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",

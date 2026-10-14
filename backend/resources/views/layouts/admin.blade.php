@@ -66,15 +66,15 @@
                 {{-- Shops --}}
                 <div>
                     <p class="px-3 pb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">Shops</p>
-                    <a href="{{ route('admin.owners') }}"
-                        class="{{ request()->routeIs('admin.owners') ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-white' }} flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition">
+                    <a href="{{ route('admin.sellers') }}"
+                        class="{{ request()->routeIs('admin.sellers') ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/25' : 'text-slate-300 hover:bg-white/5 hover:text-white' }} flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="9" cy="8" r="3.5" />
                             <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
                             <path d="M16 5.2a3.5 3.5 0 010 6.6" />
                             <path d="M18 14.6c2 1 3.3 3 3.3 5.4" />
                         </svg>
-                        Shop Owners
+                        Sellers
                     </a>
                     <a href="#" class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">

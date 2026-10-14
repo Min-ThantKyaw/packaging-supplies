@@ -34,7 +34,7 @@
         <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <div class="flex items-start justify-between">
                 <div>
-                    <p class="text-sm font-medium text-slate-500">Shop Owners</p>
+                    <p class="text-sm font-medium text-slate-500">Sellers</p>
                     <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900">128</p>
                 </div>
                 <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
@@ -46,7 +46,7 @@
                     </svg>
                 </div>
             </div>
-            <p class="mt-3 text-xs text-slate-400">All registered owners</p>
+            <p class="mt-3 text-xs text-slate-400">All registered sellers</p>
         </div>
 
         <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -222,8 +222,8 @@
     <div class="mt-6 rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
             <div>
-                <h3 class="font-semibold text-slate-900">Recent Shop Owners</h3>
-                <p class="text-xs text-slate-500">Latest owner registrations</p>
+                <h3 class="font-semibold text-slate-900">Recent Sellers</h3>
+                <p class="text-xs text-slate-500">Latest seller registrations</p>
             </div>
             <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-700">View all →</a>
         </div>
@@ -232,7 +232,7 @@
             <table class="w-full text-left text-sm">
                 <thead>
                     <tr class="border-b border-slate-100 text-xs uppercase tracking-wide text-slate-400">
-                        <th class="px-5 py-3 font-semibold">Owner</th>
+                        <th class="px-5 py-3 font-semibold">Seller</th>
                         <th class="px-5 py-3 font-semibold">Shop</th>
                         <th class="px-5 py-3 font-semibold">Phone</th>
                         <th class="px-5 py-3 font-semibold">Status</th>

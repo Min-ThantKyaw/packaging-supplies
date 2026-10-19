@@ -6,6 +6,11 @@ use App\Http\Controllers\Seller\SellerAuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
+    Route::get('/health', function(){
+        return response()->json([
+            'message' => 'ok'
+        ]);
+    });
     Route::post('/login',    [SellerAuthController::class, 'login']);
 
     Route::middleware('auth:sanctum')->group(function () {

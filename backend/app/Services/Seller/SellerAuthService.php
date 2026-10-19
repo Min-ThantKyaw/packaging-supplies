@@ -9,7 +9,7 @@ class SellerAuthService
 	public function authenticate(array $credentials): ?User
 	{
 		$user = User::where('email', $credentials['email'])
-			->where('is_active', false)
+			->where('is_active', true)
 			->first();
 
 		if (!$user || !password_verify($credentials['password'], $user->password)) {

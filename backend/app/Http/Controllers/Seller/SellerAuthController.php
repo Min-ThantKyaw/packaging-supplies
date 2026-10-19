@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AuthResource;
 use App\Http\Requests\Seller\SellerLoginRequest;
 use App\Services\Seller\SellerAuthService;
 use App\Traits\ApiResponse;
@@ -16,19 +17,20 @@ class SellerAuthController extends Controller
 
     public function login(SellerLoginRequest $request)
     {
-        if (! $this->service->authenticate($request->validated())) {
+
+        $credentials = $request->validated();
+        $user = $this->service->authenticate($credentials);
+        
+        if (! $user) {
             return $this->errorResponse('These credentials do not match our records.', 401, 'Invalid credentials');
         }
 
-        $user = $this->service->authenticate($request->validated());
         $token = $this->service->generateToken($user);
 
-        return $this->successResponse(
-            [
-            'user' => $user,
+        return $this->successResponse([
+            'user' => new AuthResource($user),
             'token' => $token,
-            ], 
-            'Login successful', 200);
+        ], 'Login successful', 200);
     }
 
     public function logout()

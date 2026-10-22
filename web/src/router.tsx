@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router'
 import { Home, Login, Dashboard, Product } from "./pages"
-import { ProtectedRoute } from './components'
-import { SellerLayout } from './layouts/SellerLayout'
+import { ProtectedRoute } from './shared/components'
+import { SellerLayout } from './shared/layouts/SellerLayout'
 
 export const router = createBrowserRouter([
 	{

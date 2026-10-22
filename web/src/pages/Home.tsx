@@ -1,5 +1,5 @@
 import { Link } from "react-router"
-import { MgLogo } from "../components"
+import { MgLogo } from "../shared/components"
 
 const navLinks = [
 	{ label: "Products", href: "#products" },

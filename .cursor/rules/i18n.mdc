@@ -1,0 +1,25 @@
+---
+description: English + Burmese UI and API messages
+globs: web/src/**/*.{ts,tsx},backend/lang/**/*.php,backend/app/Http/**/*.php
+alwaysApply: false
+---
+
+# i18n (en + mm)
+
+UI is bilingual: **English (`en`)** and **Burmese (`mm`)**. No hardcoded user-facing strings in React or in API error/success messages.
+
+```tsx
+// ❌ BAD
+<label>Email / Username</label>
+<button>Sign In</button>
+
+// ✅ GOOD — i18next keys, both locales updated together
+<label>{t('auth.email')}</label>
+```
+
+- Frontend: i18next with `en` and `mm` resource files and a header language switcher. Add keys to **both** locales in the same change.
+- Backend: Laravel `lang/en` and `lang/mm` for server-generated messages. Return message **keys or localized strings**, not English-only literals in new endpoints.
+- Format dates, numbers, and currency as **MMK** per locale.
+- User `locale` exists on the model/resource — persist the seller's language preference when you touch profile/auth UI.
+
+If i18n files are not present yet, add the minimum `en`/`mm` resources needed for the screen you are building rather than leaving English baked into JSX.

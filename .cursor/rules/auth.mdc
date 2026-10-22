@@ -1,0 +1,31 @@
+---
+description: Sanctum bearer auth for seller SPA and API
+globs: backend/app/**/*Auth*,backend/app/Http/Requests/**/*Login*,backend/app/Http/Resources/AuthResource.php,backend/routes/api.php,backend/tests/Feature/AuthTest.php,web/src/features/auth/**/*,web/src/lib/axios.ts,web/src/types/auth.type.ts,web/src/shared/components/ProtectedRoute.tsx,web/src/pages/Login.tsx,web/src/router.tsx
+alwaysApply: false
+---
+
+# Auth (Sanctum tokens)
+
+Two separate logins: **admin** (Blade, manages shop owners) and **shop owner** (SPA + Sanctum JSON). Do not share sessions, guards, or redirects between them.
+
+Stateless **Bearer** tokens for owners, not SPA cookie sessions. Owner login is email + password. Tokens expire; expose **refresh** so the SPA can rotate.
+
+Existing seller routes (`backend/routes/api.php`):
+
+- `POST /api/auth/login`
+- `GET /api/auth/me`, `POST /api/auth/refresh`, `POST /api/auth/logout` (`auth:sanctum`)
+
+```php
+// ✅ login returns user + token via service + Form Request
+$user = $this->service->authenticate($request->validated());
+$token = $this->service->generateToken($user);
+
+// ❌ session login / Auth::attempt + redirect to Blade
+```
+
+- Hash passwords (`hashed` cast). Only active users may log in (`is_active`).
+- `AuthResource` may include `id`, `name`, `email`, `phone`, `shopName`, `role`, `locale` — never `password`.
+- Refresh must **invalidate the old token** and return a new one (see `AuthTest`).
+- SPA: store token + user; send `Authorization: Bearer <token>`. `ProtectedRoute` must use real auth state, not a hardcoded `true`.
+- Blade admin (`AdminAuthController`, seller CRUD) creates and manages owners (`is_active`, shop fields). Owners cannot access admin.
+- Open self-registration (`POST /api/auth/register` in tests) is **not** the default: prefer admin-provisioned owners unless the user asks for self-signup.

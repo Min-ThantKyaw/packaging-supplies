@@ -1,0 +1,31 @@
+---
+description: How the agent should plan, ask, and ship work in this repo
+alwaysApply: true
+---
+
+# Agent workflow
+
+- Match the user's language (Burmese or English). Give a **recommended** option on design choices, not only a list.
+- **Ask** when the request is ambiguous. **Plan** the approach before writing code unless they asked for a tiny, already-clear fix.
+- Keep diffs small. If they name one fix, change only that.
+- Prefer the simplest change that matches existing patterns. Do not add libraries, folders, or abstractions the codebase does not already use.
+
+## Feature slice (backend)
+
+Finish one slice before starting the next, in this order:
+
+1. Migration + model (and enum if needed)
+2. Form Request + Service + Controller + route
+3. Feature test
+4. Owner SPA (`web/`) only after that shop-scoped API exists — unless they asked for UI-only work. Admin owner-management is Blade unless asked otherwise.
+
+Run from `backend/`: `php artisan test` and `vendor/bin/pint --test`. Apply real DB migrations with `php artisan migrate` / `migrate:status` when schema changes; tests may use SQLite.
+
+## Frontend
+
+- UI-only bugs: change `web/` only.
+- Match existing screens and tokens (e.g. `mg-orange`). If there is a reference HTML/mockup, follow it 1:1. If there is none, design to fit the current app.
+- Animations must not jump or reflow (sidebar collapse: fade/clip with width).
+- SPA deploys from `web/` on Vercel — keep client-route fallback config if you touch routing/deploy.
+
+Do not commit `.env` or secrets. Do not commit unless asked.

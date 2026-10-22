@@ -1,0 +1,38 @@
+---
+description: React + TypeScript SPA conventions in web/
+globs: web/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# React frontend (`web/`)
+
+Function components only. TypeScript strict; no `any`. Style with **Tailwind** and existing tokens (`mg-orange`, rounded-xl inputs). Do not introduce CSS modules or a new UI kit.
+
+## Folders (follow what exists)
+
+```
+web/src/
+  features/<domain>/     # e.g. features/auth/components, index.ts
+  pages/                 # route-level pages (Login, seller/Dashboard)
+  shared/components|layouts
+  lib/axios.ts           # API client
+  types/                 # API-shaped types (auth.type.ts)
+  router.tsx
+```
+
+- Pages stay thin; put form/UI pieces under `features/`. Export from the feature `index.ts`.
+- This SPA is the **shop owner** app (sales + inventory), not the platform admin UI. Routing: `createBrowserRouter` in `router.tsx`. Gate owner routes with `ProtectedRoute` + `SellerLayout`.
+- HTTP: use `api` from `lib/axios.ts` (base `/api`). Attach the Sanctum bearer token on authenticated calls; do not scatter raw `fetch` URLs.
+- Server state: TanStack Query when you add it; auth/cart: small Zustand or Context — do not add Redux.
+- Forms: `react-hook-form` is already a dependency.
+
+```tsx
+// ✅ GOOD
+import { api } from '../../lib/axios'
+await api.post('auth/login', payload)
+
+// ❌ BAD
+await fetch('http://127.0.0.1:8000/api/auth/login', { method: 'POST', body: ... })
+```
+
+Scope UI fixes to `web/`. Do not add backend endpoints for a styling or layout bug.

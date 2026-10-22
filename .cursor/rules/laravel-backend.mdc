@@ -1,0 +1,29 @@
+---
+description: Laravel API conventions for this backend
+globs: backend/**/*.php
+alwaysApply: false
+---
+
+# Laravel backend
+
+Thin controllers, logic in `app/Services/{Admin,Seller}/`, validation in Form Requests, JSON via Resources or `ApiResponse` / `App\Traits\ApiResponse`. Mirror nearby files in the same area.
+
+```php
+// ✅ GOOD — controller delegates
+public function store(StoreCategoryRequest $request): JsonResponse
+{
+    $category = $this->service->store($request->validated(), $request->user()->id);
+    return response()->json($category, 201);
+}
+
+// ❌ BAD — validation and create inside the controller
+```
+
+- JSON owner APIs in `backend/routes/api.php` under `/api`, `auth:sanctum`. Admin owner-management stays in Blade/`app/Http/Controllers/Admin` unless the user asks for an admin JSON API.
+- Owner data is tenant-scoped (`user_id`). Use `BelongsToUser` and unique rules scoped to `$this->user()->id`. Never list or mutate another owner's catalog, stock, or sales.
+- Catalog must stay **generic** (categories, products, variants, stock) so clothing, cosmetics, and other SMEs can use it. Do not add bag-size finder, origin `local`/`import`, or pack-only pricing unless asked.
+- Enums live in `app/Enums/Seller/` (string-backed). Reuse existing sale/payment/purchase/delivery statuses; do not invent new string literals.
+- Stock is per variant (or the shop's stock row) and must not go negative. Use `softDeletes` for historical sales/payments. Never return `password` except login/refresh token payloads.
+- Feature tests with `RefreshDatabase` + `$this->postJson` / `actingAs` / `withToken`. Assert tenant isolation (owner A cannot see owner B).
+
+Drivers: session `file`, cache `file`, queue `sync`. Keep Sanctum `personal_access_tokens`. Do not reintroduce unused Laravel tables (sessions, jobs, cache).

@@ -1,0 +1,33 @@
+---
+description: Multi-SME shop platform, repo layout, and what to read first
+alwaysApply: true
+---
+
+# Multi-SME shop platform
+
+This is **not** a single packaging catalog. It is a multi-tenant tool for many SME types (clothing, cosmetics, packaging, and later others). Each shop owner runs **their own** sales and inventory. Do not hardcode product categories, variants, or copy around delivery bags, stickers, or bubble wrap.
+
+## Actors
+
+| Role | Who | Can do |
+|------|-----|--------|
+| **Admin** | Platform operator | Create, activate/deactivate, and manage **shop owners**. Not day-to-day stock/sales of a shop. |
+| **Shop owner** (`owner` in code) | SME | Manage **their shop only**: catalog, inventory, sales, purchases, expenses. |
+
+Do not give owners admin APIs, or let admin silently write into another owner's sales/stock unless the user asked for impersonation.
+
+## Layout (use these paths, not docs aliases)
+
+- `backend/` — Laravel 13 / PHP 8.3. Blade **admin**; JSON API **owners** (`/api`, Sanctum)
+- `web/` — React 19 + TypeScript SPA for shop owners (docs may still say `frontend/`)
+- `docs/` — older packaging-portal draft. Prefer **this rule + current code** when docs still describe a public B2B bag/sticker storefront
+
+## Before coding
+
+1. Read existing code in the area you will change.
+2. Keep data **tenant-scoped** (`user_id` / shop owner). New tables for sales or inventory must belong to an owner.
+3. Payments and shipping stay **manual** unless the user asks otherwise. Currency is **MMK**.
+
+## Out of scope unless asked
+
+Do not run `composer require laravel/boost` or `php artisan boost:install`. Do not expand a scoped UI fix into a backend/API change. Do not add a public customer storefront or extra roles (`sales_staff`, `customer`) unless asked.

@@ -26,3 +26,6 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 .commandcode
+Dockerfile*
+docker-compose*.y*ml
+docker

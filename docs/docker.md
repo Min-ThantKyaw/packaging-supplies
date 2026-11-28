@@ -96,6 +96,7 @@ docker compose logs -f web
 
 # Artisan
 docker compose exec backend php artisan migrate
+docker compose exec backend php artisan db:seed
 docker compose exec backend php artisan tinker
 docker compose exec backend php artisan make:model Product -m
 
@@ -115,12 +116,30 @@ docker compose down
 docker compose down -v
 ```
 
+## Seeding
+
+`php artisan db:seed` is not part of the container entrypoint. Run it once after
+migrating:
+
+```sh
+docker compose exec backend php artisan db:seed
+```
+
+- `AdminUserSeeder` creates or updates the owner from `ADMIN_EMAIL` and
+  `ADMIN_PASSWORD`; it skips with a warning when either is blank.
+- `DemoCustomerSeeder` creates or updates `customer@example.com` with the password
+  `password`, overridable via `DEMO_CUSTOMER_EMAIL` and `DEMO_CUSTOMER_PASSWORD`.
+  It only runs when `APP_ENV=local`, so production seeding never creates a
+  known-password account.
+- Both seeders are idempotent but reset the password of the account they own, so
+  re-running after a password change in the UI restores the seeded value.
+
 ## How the containers work
 
 - `backend/docker/entrypoint.sh` creates `.env` from `.env.example` when missing,
-  installs Composer dependencies when `vendor/autoload.php` is absent, generates
-  `APP_KEY` when it is empty, then runs migrations before starting
-  `php artisan serve`.
+  installs Composer dependencies when `vendor/autoload.php` is absent or
+  `composer.lock` is newer than the installed packages, generates `APP_KEY` when it
+  is empty, then runs migrations before starting `php artisan serve`.
 - `web/docker/entrypoint.sh` runs `npm ci` when `node_modules/` is empty, then
   starts the Vite dev server.
 - Source code is bind-mounted, so edits on the host are picked up immediately.
@@ -135,8 +154,10 @@ Use the published backend port, for example:
 fetch('http://localhost:8000/api/health')
 ```
 
-Laravel's default CORS config allows `api/*` from any origin, so no extra setup is
-needed for `localhost:5173`.
+In the SPA, requests go through `web/src/api/client.ts` and `VITE_API_URL` rather than
+raw `fetch`. CORS only allows the origins in `FRONTEND_URL` (default
+`http://localhost:5173`), so keep that value in `backend/.env` in sync with the Vite
+origin.
 
 ## Troubleshooting
 
@@ -155,6 +176,16 @@ needed for `localhost:5173`.
   ```sh
   docker compose run --rm backend composer install
   docker compose run --rm web npm ci
+  ```
+
+- **Vite says a package cannot be resolved (`Failed to resolve import …`)** right
+  after adding it: it was installed on the host into `web/node_modules`, while the
+  dev server reads the `web_node_modules` volume. Install it in the container and
+  restart the server:
+
+  ```sh
+  docker compose exec web npm install
+  docker compose restart web
   ```
 
   Or remove the volumes with `docker compose down -v`.
